@@ -1,0 +1,61 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LoginPage extends JFrame implements ActionListener {
+
+    JLabel usernameLabel = new JLabel("Username:");
+    JLabel passwordLabel = new JLabel("Password:");
+    JTextField usernameField = new JTextField();
+    JPasswordField passwordField = new JPasswordField();
+    JButton loginButton = new JButton("Login");
+
+    public LoginPage() {
+        super("Login Page");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Panel for the form elements
+        JPanel formPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+        formPanel.add(usernameLabel);
+        formPanel.add(usernameField);
+        formPanel.add(passwordLabel);
+        formPanel.add(passwordField);
+
+        // Panel for the login button
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(loginButton);
+
+        // Adding action listener to the button
+        loginButton.addActionListener(this);
+
+        // Main container
+        setLayout(new BorderLayout());
+        add(formPanel, BorderLayout.CENTER); 
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        pack(); // Resize frame to fit components
+        setLocationRelativeTo(null); // Center on screen
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loginButton) {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
+
+            // In a real application, you'd perform authentication here
+            // For now, just a sample message:
+            if (username.equals("user") && password.equals("pass")) {
+                JOptionPane.showMessageDialog(this, "Login Successful!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new LoginPage();
+    }
+}
